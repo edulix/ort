@@ -40,7 +40,7 @@
         "scroll-into-view-if-needed": "^2.2.28"
     },
     "devDependencies": {
-        "@testing-library/jest-dom": "^5.13.0",
+        "@testing-library/jest-dom": "^5.15.0",
         "@testing-library/react": "^11.2.7",
         "@testing-library/user-event": "^13.1.9",
         "@rescripts/cli": "^0.0.16",
