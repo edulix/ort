@@ -46,6 +46,7 @@ import org.ossreviewtoolkit.model.licenses.ResolvedLicense
 import org.ossreviewtoolkit.model.licenses.ResolvedLicenseFileInfo
 import org.ossreviewtoolkit.model.licenses.ResolvedLicenseInfo
 import org.ossreviewtoolkit.model.licenses.filterExcluded
+import org.ossreviewtoolkit.reporter.ReportTableModelMapper
 import org.ossreviewtoolkit.reporter.Reporter
 import org.ossreviewtoolkit.reporter.ReporterInput
 import org.ossreviewtoolkit.utils.common.expandTilde
@@ -112,6 +113,14 @@ class FreemarkerTemplateProcessor(
             PackageModel(pkg.pkg.id, input)
         }
 
+        val tabularScanRecord = ReportTableModelMapper(
+                input.resolutionProvider,
+                input.howToFixTextProvider
+            ).mapToReportTableModel(
+                input.ortResult,
+                input.licenseInfoResolver
+            )
+
         // Keep this in sync with "resources/templates/freemarker_implicit.ftl".
         val dataModel = mapOf(
             "projects" to projects,
@@ -121,7 +130,8 @@ class FreemarkerTemplateProcessor(
             "LicenseView" to LicenseView,
             "helper" to TemplateHelper(input),
             "projectsAsPackages" to projectsAsPackages,
-            "vulnerabilityReference" to VulnerabilityReference
+            "vulnerabilityReference" to VulnerabilityReference,
+            "tabularScanRecord" to tabularScanRecord
         )
 
         val freemarkerConfig = Configuration(Configuration.VERSION_2_3_30).apply {
