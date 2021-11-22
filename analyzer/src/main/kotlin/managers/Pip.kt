@@ -207,6 +207,7 @@ class Pip(
         //       executable in the virtualenv directly, see https://github.com/pypa/virtualenv/issues/997.
         val process = ProcessCapture(workingDir, resolvedCommand.path, *commandArgs)
         log.debug { process.stdout }
+        log.debug { process.stderr }
         return process
     }
 

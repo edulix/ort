@@ -39,7 +39,7 @@ class ProcessCapture(vararg command: String, workingDir: File? = null, environme
     constructor(workingDir: File?, vararg command: String) : this(*command, workingDir = workingDir)
 
     companion object {
-        private const val MAX_OUTPUT_LINES = 20
+        private const val MAX_OUTPUT_LINES = 2000
         private const val MAX_OUTPUT_FOOTER =
             "(Above output is limited to each $MAX_OUTPUT_LINES heading and tailing lines.)"
 

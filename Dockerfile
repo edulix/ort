@@ -66,6 +66,7 @@ RUN apt-get update \
         cargo \
         composer \
         cvs \
+        python2 \
         dart \
         git \
         lib32stdc++6 \

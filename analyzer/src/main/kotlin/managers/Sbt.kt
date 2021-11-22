@@ -33,13 +33,13 @@ import org.ossreviewtoolkit.analyzer.PackageManager
 import org.ossreviewtoolkit.model.config.AnalyzerConfiguration
 import org.ossreviewtoolkit.model.config.RepositoryConfiguration
 import org.ossreviewtoolkit.utils.common.Os
+import org.ossreviewtoolkit.utils.common.ProcessCapture
 import org.ossreviewtoolkit.utils.common.getCommonFileParent
 import org.ossreviewtoolkit.utils.common.safeDeleteRecursively
 import org.ossreviewtoolkit.utils.common.searchUpwardsForSubdirectory
 import org.ossreviewtoolkit.utils.core.CommandLineTool
 import org.ossreviewtoolkit.utils.core.createOrtTempDir
 import org.ossreviewtoolkit.utils.core.log
-import org.ossreviewtoolkit.utils.core.suppressInput
 
 /**
  * The [SBT](https://www.scala-sbt.org/) package manager for Scala.
@@ -140,10 +140,12 @@ class Sbt(
 
         log.info { "Determined '$workingDir' as the $managerName project root directory." }
 
-        fun runSbt(vararg command: String) =
-            suppressInput {
-                run(workingDir, *SBT_OPTIONS, *command)
-            }
+        fun runSbt(vararg command: String): ProcessCapture {
+            val process = run(workingDir, *SBT_OPTIONS, *command)
+            log.debug { process.stdout }
+            log.debug { process.stderr }
+            return process
+        }
 
         // Get the list of project names.
         val internalProjectNames = runSbt("projects").stdout.lines().mapNotNull {
