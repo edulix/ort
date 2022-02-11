@@ -84,6 +84,8 @@ RUN apt-get update \
         unzip \
         xz-utils \
         zlib1g \
+        zlib1g-dev \
+        libjpeg8-dev \
     && rm -rf /var/lib/apt/lists/*
 
 #------------------------------------------------------------------------
@@ -121,7 +123,6 @@ RUN apt-get update \
         uuid-dev \
         xz-utils \
         zlib1g-dev \
-        libjpeg8-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy the necessary bash resource to have paths
