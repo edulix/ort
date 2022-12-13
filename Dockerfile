@@ -85,6 +85,7 @@ RUN apt-get update \
         xz-utils \
         zlib1g \
         zlib1g-dev \
+        libfreetype6-dev \
         libjpeg8-dev \
     && rm -rf /var/lib/apt/lists/*
 
